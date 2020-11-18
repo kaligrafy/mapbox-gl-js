@@ -41,6 +41,7 @@ function drawCircles(painter: Painter, sourceCache: SourceCache, layer: CircleSt
     const strokeWidth = layer.paint.get('circle-stroke-width');
     const strokeOpacity = layer.paint.get('circle-stroke-opacity');
     const sortFeaturesByKey = layer.layout.get('circle-sort-key').constantOr(1) !== undefined;
+    const customShader = layer.customShader || 'circle';
 
     if (opacity.constantOr(1) === 0 && (strokeWidth.constantOr(1) === 0 || strokeOpacity.constantOr(1) === 0)) {
         return;
@@ -65,7 +66,7 @@ function drawCircles(painter: Painter, sourceCache: SourceCache, layer: CircleSt
         if (!bucket) continue;
 
         const programConfiguration = bucket.programConfigurations.get(layer.id);
-        const program = painter.useProgram('circle', programConfiguration);
+        const program = painter.useProgram(customShader, programConfiguration);
         const layoutVertexBuffer = bucket.layoutVertexBuffer;
         const indexBuffer = bucket.indexBuffer;
         const uniformValues = circleUniformValues(painter, coord, tile, layer);

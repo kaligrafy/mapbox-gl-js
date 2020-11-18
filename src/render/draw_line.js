@@ -41,6 +41,8 @@ export default function drawLine(painter: Painter, sourceCache: SourceCache, lay
         dasharray ? 'lineSDF' :
         gradient ? 'lineGradient' : 'line';
 
+    const customShader = layer.customShader || programId;
+
     const context = painter.context;
     const gl = context.gl;
 
@@ -56,7 +58,7 @@ export default function drawLine(painter: Painter, sourceCache: SourceCache, lay
 
         const programConfiguration = bucket.programConfigurations.get(layer.id);
         const prevProgram = painter.context.program.get();
-        const program = painter.useProgram(programId, programConfiguration);
+        const program = painter.useProgram(customShader, programConfiguration);
         const programChanged = firstTile || program.program !== prevProgram;
 
         const constantPattern = patternProperty.constantOr(null);
@@ -79,6 +81,7 @@ export default function drawLine(painter: Painter, sourceCache: SourceCache, lay
         } else if (dasharray && (programChanged || painter.lineAtlas.dirty)) {
             context.activeTexture.set(gl.TEXTURE0);
             painter.lineAtlas.bind(context);
+        
         } else if (gradient) {
             const layerGradient = bucket.gradients[layer.id];
             let gradientTexture = layerGradient.texture;

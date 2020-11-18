@@ -40,6 +40,8 @@ import hillshadeFrag from './hillshade.fragment.glsl';
 import hillshadeVert from './hillshade.vertex.glsl';
 import lineFrag from './line.fragment.glsl';
 import lineVert from './line.vertex.glsl';
+import lineArrowFrag from './line_arrow.fragment.glsl';
+import lineArrowVert from './line_arrow.vertex.glsl';
 import lineGradientFrag from './line_gradient.fragment.glsl';
 import lineGradientVert from './line_gradient.vertex.glsl';
 import linePatternFrag from './line_pattern.fragment.glsl';
@@ -74,6 +76,7 @@ export const fillExtrusionPattern = compile(fillExtrusionPatternFrag, fillExtrus
 export const hillshadePrepare = compile(hillshadePrepareFrag, hillshadePrepareVert);
 export const hillshade = compile(hillshadeFrag, hillshadeVert);
 export const line = compile(lineFrag, lineVert);
+export const lineArrow = compile(lineArrowFrag, lineArrowVert);
 export const lineGradient = compile(lineGradientFrag, lineGradientVert);
 export const linePattern = compile(linePatternFrag, linePatternVert);
 export const lineSDF = compile(lineSDFFrag, lineSDFVert);
